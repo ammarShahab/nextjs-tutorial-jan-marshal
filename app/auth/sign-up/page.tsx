@@ -41,7 +41,7 @@ export default function SignUp() {
         <CardDescription>Create Your Account</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>
             <Label htmlFor="username">Username</Label>
             <Input
@@ -53,7 +53,7 @@ export default function SignUp() {
             {errors.username && <p>{errors.username.message}</p>}
           </div>
           <div>
-            <Label htmlFor="email">Email</Label>
+            <Label>Email</Label>
             <Input
               id="email"
               type="email"
