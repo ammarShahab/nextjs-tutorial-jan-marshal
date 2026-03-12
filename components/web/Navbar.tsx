@@ -35,7 +35,7 @@ export function Navbar() {
         </Link>
         <Link
           className={buttonVariants({ variant: "secondary" })}
-          href="/auth/register"
+          href="/auth/sign-up"
         >
           Register
         </Link>
