@@ -8,4 +8,4 @@ const signupSchema = z.object({
 
 export default signupSchema;
 
-export type SignUpSchema = z.infer<typeof signupSchema>;
+// export type SignUpSchema = z.infer<typeof signupSchema>;

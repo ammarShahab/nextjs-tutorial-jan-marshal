@@ -7,18 +7,24 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import signupSchema, { SignUpSchema } from "../schema/auth";
+import { Controller, useForm } from "react-hook-form";
+import signupSchema from "../schema/auth";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
 
 export default function SignUp() {
   /* const { register, handleSubmit, formState: { errors } } = useForm({
   resolver: zodResolver(schema),
 }); */
 
-  const {
+  /* const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -29,11 +35,21 @@ export default function SignUp() {
       password: "",
       username: "",
     },
+  }); */
+
+  const form = useForm({
+    resolver: zodResolver(signupSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      username: "",
+    },
   });
 
-  const onSubmit = async (data: SignUpSchema) => {
+  const onSubmit = (data) => {
     console.log(data);
   };
+
   return (
     <Card>
       <CardHeader>
@@ -41,8 +57,64 @@ export default function SignUp() {
         <CardDescription>Create Your Account</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <FieldGroup>
+            <Controller
+              name="username"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field>
+                  <FieldLabel>Full Name</FieldLabel>
+                  <Input
+                    aria-invalid={fieldState.invalid}
+                    placeholder="John Doe"
+                    {...field}
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]}></FieldError>
+                  )}
+                </Field>
+              )}
+            />
+            <Controller
+              name="email"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field>
+                  <FieldLabel>Email</FieldLabel>
+                  <Input
+                    aria-invalid={fieldState.invalid}
+                    placeholder="john@doe.com"
+                    type="email"
+                    {...field}
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]}></FieldError>
+                  )}
+                </Field>
+              )}
+            />
+            <Controller
+              name="password"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field>
+                  <FieldLabel>Password</FieldLabel>
+                  <Input
+                    aria-invalid={fieldState.invalid}
+                    placeholder="*******"
+                    type="password"
+                    {...field}
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]}></FieldError>
+                  )}
+                </Field>
+              )}
+            />
+          </FieldGroup>
+          <Button type="submit"> Sign Up</Button>
+          {/*  <div>
             <Label htmlFor="username">Username</Label>
             <Input
               id="username"
@@ -74,7 +146,7 @@ export default function SignUp() {
           </div>
           <Button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Signing Up..." : "Sign Up"}
-          </Button>
+          </Button> */}
         </form>
       </CardContent>
     </Card>
