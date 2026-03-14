@@ -1,11 +1,14 @@
 import * as z from "zod";
 
-const signupSchema = z.object({
+export const signupSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6).max(30),
   username: z.string().min(3).max(30),
 });
 
-export default signupSchema;
-
 // export type SignUpSchema = z.infer<typeof signupSchema>;
+
+export const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6).max(30),
+});

@@ -9,7 +9,7 @@ export default function SharedLayout({
   return (
     <>
       <Navbar />
-      {children}{" "}
+      {children}
     </>
   );
 }

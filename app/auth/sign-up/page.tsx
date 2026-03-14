@@ -8,8 +8,6 @@ import {
 } from "@/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import signupSchema from "../schema/auth";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +16,9 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
+import z from "zod";
+import { authClient } from "@/lib/auth-client";
+import { signupSchema } from "../schema/auth";
 
 export default function SignUp() {
   /* const { register, handleSubmit, formState: { errors } } = useForm({
@@ -46,8 +47,13 @@ export default function SignUp() {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data: z.infer<typeof signupSchema>) => {
     console.log(data);
+    await authClient.signUp.email({
+      email: data.email,
+      name: data.username,
+      password: data.password,
+    });
   };
 
   return (

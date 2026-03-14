@@ -1,11 +1,23 @@
 "use client";
 
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
-import React from "react";
-import { ThemeToggle } from "./theme-toggle";
+import { useConvexAuth } from "convex/react";
+import dynamic from "next/dynamic";
+import { authClient } from "@/lib/auth-client";
+
+const ThemeToggle = dynamic(
+  () => import("@/components/web/theme-toggle").then((mod) => mod.ThemeToggle),
+  {
+    ssr: false,
+  },
+);
 
 export function Navbar() {
+  const { isAuthenticated, isLoading } = useConvexAuth();
+
+  console.log("Is authenticated From Navbar: ", isAuthenticated);
+
   return (
     <nav className="flex justify-between items-center gap-4">
       <div>
@@ -29,16 +41,24 @@ export function Navbar() {
       </div>
 
       <div className="flex gap-4">
+        {isLoading ? null : isAuthenticated ? (
+          <Button onClick={async () => await authClient.signOut({})}>
+            Logout
+          </Button>
+        ) : (
+          <>
+            <Link className={buttonVariants()} href="/auth/logIn">
+              Login
+            </Link>
+            <Link
+              className={buttonVariants({ variant: "secondary" })}
+              href="/auth/sign-up"
+            >
+              Register
+            </Link>
+          </>
+        )}
         <ThemeToggle />
-        <Link className={buttonVariants()} href="/auth/login">
-          Login
-        </Link>
-        <Link
-          className={buttonVariants({ variant: "secondary" })}
-          href="/auth/sign-up"
-        >
-          Register
-        </Link>
       </div>
     </nav>
   );
