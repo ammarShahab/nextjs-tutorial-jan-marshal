@@ -1021,5 +1021,8 @@ export declare const components: {
         any
       >;
     };
+    auth: {
+      getCurrentUser: FunctionReference<"query", "internal", {}, any>;
+    };
   };
 };

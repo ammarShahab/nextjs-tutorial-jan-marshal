@@ -1001,4 +1001,7 @@ export type ComponentApi<Name extends string | undefined = string | undefined> =
         Name
       >;
     };
+    auth: {
+      getCurrentUser: FunctionReference<"query", "internal", {}, any, Name>;
+    };
   };

@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useConvexAuth } from "convex/react";
 import dynamic from "next/dynamic";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const ThemeToggle = dynamic(
   () => import("@/components/web/theme-toggle").then((mod) => mod.ThemeToggle),
@@ -14,6 +16,7 @@ const ThemeToggle = dynamic(
 );
 
 export function Navbar() {
+  const router = useRouter();
   const { isAuthenticated, isLoading } = useConvexAuth();
 
   console.log("Is authenticated From Navbar: ", isAuthenticated);
@@ -42,7 +45,21 @@ export function Navbar() {
 
       <div className="flex gap-4">
         {isLoading ? null : isAuthenticated ? (
-          <Button onClick={async () => await authClient.signOut({})}>
+          <Button
+            onClick={async () =>
+              await authClient.signOut({
+                fetchOptions: {
+                  onSuccess: () => {
+                    toast.success("Logout successful");
+                    router.push("/");
+                  },
+                  onError: (error) => {
+                    toast.error(error.error.message);
+                  },
+                },
+              })
+            }
+          >
             Logout
           </Button>
         ) : (

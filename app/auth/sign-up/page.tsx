@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Card,
   CardContent,
@@ -19,6 +20,10 @@ import {
 import z from "zod";
 import { authClient } from "@/lib/auth-client";
 import { signupSchema } from "../schema/auth";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { Loader2 } from "lucide-react";
 
 export default function SignUp() {
   /* const { register, handleSubmit, formState: { errors } } = useForm({
@@ -38,6 +43,8 @@ export default function SignUp() {
     },
   }); */
 
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -49,10 +56,21 @@ export default function SignUp() {
 
   const onSubmit = async (data: z.infer<typeof signupSchema>) => {
     console.log(data);
-    await authClient.signUp.email({
-      email: data.email,
-      name: data.username,
-      password: data.password,
+    startTransition(async () => {
+      await authClient.signUp.email({
+        email: data.email,
+        name: data.username,
+        password: data.password,
+        fetchOptions: {
+          onSuccess: () => {
+            toast.success("Sign Up successful");
+            router.replace("/");
+          },
+          onError: (error) => {
+            toast.error(error.error.message);
+          },
+        },
+      });
     });
   };
 
@@ -119,7 +137,16 @@ export default function SignUp() {
               )}
             />
           </FieldGroup>
-          <Button type="submit"> Sign Up</Button>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? (
+              <>
+                <Loader2 className="animate-spin" />
+                Signing Up...
+              </>
+            ) : (
+              "Sign Up"
+            )}
+          </Button>
           {/*  <div>
             <Label htmlFor="username">Username</Label>
             <Input
