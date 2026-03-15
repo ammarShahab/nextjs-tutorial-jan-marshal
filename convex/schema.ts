@@ -7,4 +7,10 @@ export default defineSchema({
     description: v.string(),
     authorId: v.string(),
   }),
+
+  tasks: defineTable({
+    title: v.string(),
+    description: v.string(),
+    authorId: v.string(),
+  }),
 });

@@ -41,6 +41,12 @@ export function Navbar() {
         >
           Create Blog
         </Link>
+        <Link
+          className={buttonVariants({ variant: "ghost" })}
+          href="/create-task"
+        >
+          Create Task
+        </Link>
       </div>
 
       <div className="flex gap-4">
