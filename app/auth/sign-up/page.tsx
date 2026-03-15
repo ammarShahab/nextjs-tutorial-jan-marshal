@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/field";
 import z from "zod";
 import { authClient } from "@/lib/auth-client";
-import { signupSchema } from "../schema/auth";
+import { signupSchema } from "../../schema/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";

@@ -1,0 +1,23 @@
+import { mutation } from "./_generated/server";
+import { v } from "convex/values";
+import { authComponent } from "./betterAuth/auth";
+
+// Create a new task with the given text
+export const createBlog = mutation({
+  args: { title: v.string(), description: v.string() },
+
+  handler: async (ctx, args) => {
+    const user = await authComponent.safeGetAuthUser(ctx);
+
+    if (!user) {
+      throw new Error("Unauthorized");
+    }
+
+    const blogArticle = await ctx.db.insert("blogs", {
+      title: args.title,
+      description: args.description,
+      authorId: user._id,
+    });
+    return blogArticle;
+  },
+});

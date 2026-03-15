@@ -5,7 +5,7 @@ pnpm i convex (as i used pnpm)
             |
             |
             \/
-pnpm dlx convex dev (in documentation its npx convex dev but we will use "pnpm dlx convex dev" everytime it should be run in the terminal)
+pnpm dlx convex dev (in documentation its npx convex dev but we will use "pnpm dlx convex dev" every time it should be run in the terminal)
             |
             |
            \/
@@ -22,3 +22,5 @@ Now follow the rest of the flow as per documentation
 - see the documentation "https://better-auth.com/docs/integrations/convex" and end to "Wrap your app with the ConvexClientProvider component"
 - also read that document "https://labs.convex.dev/better-auth/basic-usage/authorization"
 - to implement follow the Navbar.tsx file
+
+### For creating blogs for create-blog route as per convex documentation(database/documentation) first create schema in convex/schema.ts this is the best practice.

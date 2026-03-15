@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { loginSchema } from "../schema/auth";
+import { loginSchema } from "../../schema/auth";
 import { authClient } from "@/lib/auth-client";
 import z from "zod";
 import {
