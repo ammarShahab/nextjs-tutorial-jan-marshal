@@ -32,14 +32,15 @@ export function Navbar() {
         <Link className={buttonVariants({ variant: "ghost" })} href="/">
           Home
         </Link>
-        <Link className={buttonVariants({ variant: "ghost" })} href="/blog">
-          Blog
-        </Link>
+
         <Link
           className={buttonVariants({ variant: "ghost" })}
           href="/create-blog"
         >
           Create Blog
+        </Link>
+        <Link className={buttonVariants({ variant: "ghost" })} href="/blogs">
+          Blogs
         </Link>
         <Link
           className={buttonVariants({ variant: "ghost" })}

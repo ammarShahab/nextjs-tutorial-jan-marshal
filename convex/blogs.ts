@@ -1,4 +1,4 @@
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { authComponent } from "./betterAuth/auth";
 
@@ -21,5 +21,16 @@ export const createBlog = mutation({
       authorId: user._id,
     });
     return blogArticle;
+  },
+});
+
+export const getBlogs = query({
+  args: {},
+  handler: async (ctx) => {
+    // Get all blogs from the database
+    const blogs = await ctx.db.query("blogs").collect();
+
+    // Order blogs by _creationTime (descending) to show latest first
+    return blogs.sort((a, b) => b._creationTime - a._creationTime);
   },
 });
