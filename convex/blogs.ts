@@ -9,6 +9,8 @@ export const createBlog = mutation({
   handler: async (ctx, args) => {
     const user = await authComponent.safeGetAuthUser(ctx);
 
+    console.log("Convex task.ts", user);
+
     if (!user) {
       throw new Error("Unauthorized");
     }

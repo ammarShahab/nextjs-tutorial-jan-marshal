@@ -10,7 +10,7 @@ export default defineSchema({
 
   tasks: defineTable({
     title: v.string(),
-    description: v.string(),
-    authorId: v.string(),
+    content: v.string(),
+    userId: v.string(),
   }),
 });

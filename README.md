@@ -1,4 +1,4 @@
-### Installation procees of Convex (backend databasr)
+### Installation process of Convex (backend database)
 
 ```
 pnpm i convex (as i used pnpm)
@@ -24,3 +24,10 @@ Now follow the rest of the flow as per documentation
 - to implement follow the Navbar.tsx file
 
 ### For creating blogs for create-blog route as per convex documentation(database/documentation) first create schema in convex/schema.ts this is the best practice.
+
+### As the create Blog page is created according to the tutorial (React Hook form and convex) but create task is created according to the traditional react hook form and create with server actions (according to the documentation "https://docs.convex.dev/client/nextjs/app-router/server-rendering#server-actions-and-route-handlers") with the help of convex. Working routes are following:
+
+- convex\tasks.ts
+- app/(shared-layout)/create-task/page.tsx
+- convex\taskActions.ts
+- app\schema\create-task.ts
