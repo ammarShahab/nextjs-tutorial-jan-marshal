@@ -7,10 +7,9 @@ export default function Blogs() {
   const blogs = useQuery(api.blogs.getBlogs);
   console.log(blogs);
 
-  /*  if (blogs === undefined) {
+  if (blogs === undefined) {
     return <div>Loading blogs...</div>;
-  } */
-
+  }
   if (blogs?.length === 0) {
     return <div>No blogs found. Create one to get started!</div>;
   }
