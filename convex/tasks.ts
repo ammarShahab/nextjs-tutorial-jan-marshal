@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { authComponent } from "./betterAuth/auth";
 
 export const createTask = mutation({
@@ -17,5 +17,13 @@ export const createTask = mutation({
       userId: user._id,
     });
     return taskList;
+  },
+});
+
+export const getTasks = query({
+  args: {},
+  handler: (ctx) => {
+    const tasks = ctx.db.query("tasks").collect();
+    return tasks;
   },
 });

@@ -15,7 +15,7 @@ export default async function taskActions(values: z.infer<typeof taskSchema>) {
   }
 
   const token = await getToken();
-
+  // fetchMutation is used to perform server action otherwise we will use mutation
   await fetchMutation(
     api.tasks.createTask,
     {
