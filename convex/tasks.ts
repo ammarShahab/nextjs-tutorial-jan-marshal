@@ -10,6 +10,7 @@ export const createTask = mutation({
     if (!user) {
       throw new Error("Unauthorized");
     }
+
     const taskList = ctx.db.insert("tasks", {
       title: args.title,
       content: args.content,

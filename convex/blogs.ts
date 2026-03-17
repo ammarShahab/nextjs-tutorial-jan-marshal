@@ -28,9 +28,9 @@ export const getBlogs = query({
   args: {},
   handler: async (ctx) => {
     // Get all blogs from the database
-    const blogs = await ctx.db.query("blogs").collect();
+    const blogs = await ctx.db.query("blogs").order("desc").collect();
 
     // Order blogs by _creationTime (descending) to show latest first
-    return blogs.sort((a, b) => b._creationTime - a._creationTime);
+    return blogs;
   },
 });
