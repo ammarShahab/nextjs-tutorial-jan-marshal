@@ -7,8 +7,8 @@ import { redirect } from "next/navigation";
 import { getToken } from "@/lib/auth-server";
 import { fetchMutation } from "convex/nextjs";
 
-export default async function taskActions(values: z.infer<typeof taskSchema>) {
-  const parsed = taskSchema.safeParse(values);
+export default async function taskActions(data: z.infer<typeof taskSchema>) {
+  const parsed = taskSchema.safeParse(data);
 
   if (!parsed.success) {
     throw new Error(parsed.error.message);
