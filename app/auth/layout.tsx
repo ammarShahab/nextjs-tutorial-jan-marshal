@@ -12,7 +12,7 @@ export default function AuthLayout({
     <div className="max-w-3xl mx-auto min-h-screen space-y-4">
       <div>
         <Link href="/">
-          <Button variant="secondary">
+          <Button className="hover:cursor-pointer" variant="secondary">
             <ArrowLeft />
             Go Back
           </Button>
