@@ -69,14 +69,12 @@ export async function TasksLists() {
           <BadgeCheck data-icon="inline-start" />
           {tasks.length} total
         </Badge>
-        <div className="flex gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {tasks.map((task) => (
             <Card key={task._id} className="border shadow-none flex-1">
               <CardHeader className="pb-2">
                 <div className="flex items-start justify-between gap-2">
-                  <CardTitle className="text-base font-medium leading-snug">
-                    {task.title}
-                  </CardTitle>
+                  <CardTitle className="text-base font-medium leading-snug"></CardTitle>
                   <span className="shrink-0 text-xs text-muted-foreground">
                     {formatDate(task._creationTime)}
                   </span>
