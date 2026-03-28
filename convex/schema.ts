@@ -8,6 +8,7 @@ export default defineSchema({
     authorId: v.string(),
   }),
 
+  // 1.0 Create schema for create task functionality
   tasks: defineTable({
     title: v.string(),
     content: v.string(),

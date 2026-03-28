@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { getToken } from "@/lib/auth-server";
 import { fetchMutation } from "convex/nextjs";
 
+// 1.4 create task actions in frontend
 export default async function taskActions(data: z.infer<typeof taskSchema>) {
   const parsed = taskSchema.safeParse(data);
 
@@ -24,5 +25,5 @@ export default async function taskActions(data: z.infer<typeof taskSchema>) {
     },
     { token },
   );
-  return redirect("/");
+  return redirect("/tasks");
 }

@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 
 export default function CreateTask() {
+  // 1.3 create task form in frontend
   const {
     register,
     handleSubmit,
