@@ -19,7 +19,7 @@ export default function Tasks() {
   // created a fake delay of 5 seconds
   // await new Promise((resolve) => setTimeout(resolve, 5000));
 
-  //2.0 to make any server components remain server components we will use fetchQuery using react feature streaming (i.e in tasks page the client component Navbar and static component  in the server component do not render only dynamic data will render). But realtime updates will not be possible using fetchQuery for its limitations. to make server components realtime we will use preloadQuery which we will learn later.
+  //2.0 to make any server components remain server components we will use fetchQuery using react feature streaming (i.e in tasks page the client component Navbar and static component in the server component do not render only dynamic data will render with Skeleton Loading). But realtime updates will not be possible using fetchQuery for its limitations. to make server components realtime we will use preloadQuery which we will learn later.
   // const tasks = await fetchQuery(api.tasks.getTasks);
   // console.log("Tasks", tasks);
 
