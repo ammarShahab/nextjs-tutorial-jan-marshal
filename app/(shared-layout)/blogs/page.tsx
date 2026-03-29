@@ -6,6 +6,8 @@ import { useQuery } from "convex/react";
 import Image from "next/image";
 import Link from "next/link";
 
+// 5.0 as the blog route is dynamic because its a shared layout with using token, so to make it static we will use force-static and in build mode
+export const dynamic = "force-static";
 export default function Blogs() {
   const blogs = useQuery(api.blogs.getBlogs);
   console.log(blogs);
