@@ -26,7 +26,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const token = await getToken();
+  // const token = await getToken();
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -40,9 +40,9 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <main className="max-w-7xl mx-auto w-full px-4 md:px-6 lg:px-8">
-            <ConvexClientProvider initialToken={token}>
-              {children}
-            </ConvexClientProvider>
+            {/* <ConvexClientProvider initialToken={token}> */}
+            {children}
+            {/* </ConvexClientProvider> */}
           </main>
           <Toaster closeButton />
         </ThemeProvider>
