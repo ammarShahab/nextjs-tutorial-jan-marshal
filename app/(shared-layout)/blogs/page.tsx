@@ -29,6 +29,7 @@ export default function Blogs() {
             <div className="relative overflow-hidden h-48 w-full">
               <Image
                 src={
+                  blog.imageId ??
                   "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 }
                 alt={blog.title}

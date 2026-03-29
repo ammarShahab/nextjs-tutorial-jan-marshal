@@ -23,10 +23,14 @@ import z from "zod";
 
 export default function CreateBlog() {
   const mutation = useMutation(api.blogs.createBlog);
+
+  // 3.4 call the generateImageUploadUrl
+  const generateImageUploadUrl = useMutation(api.blogs.generateImageUploadUrl);
+
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof blogSchema>>({
     resolver: zodResolver(blogSchema),
     defaultValues: {
       title: "",
@@ -36,11 +40,33 @@ export default function CreateBlog() {
 
   function onSubmit(values: z.infer<typeof blogSchema>) {
     startTransition(async () => {
+      // 3.6 created an image id
+      let imageStorageId;
+
+      // 3.6.1 check the image is present or not
+      if (values.image) {
+        const file = values.image;
+        // 3.6.2 if image is present then call the generateImageUploadUrl
+        const imageUploadUrl = await generateImageUploadUrl();
+        // 3.6.3 send the image to the imageUploadUrl
+        const result = await fetch(imageUploadUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": file.type,
+          },
+          body: file,
+        });
+        const { storageId } = await result.json();
+        imageStorageId = storageId;
+      }
+
       mutation({
         title: values.title,
         description: values.description,
+        // 3.6.4 send the image id to the convex db
+        imageStorageId,
       });
-      router.push("/");
+      router.push("/blogs");
     });
   }
 
@@ -82,6 +108,28 @@ export default function CreateBlog() {
                   <Field>
                     <FieldLabel>Description</FieldLabel>
                     <Textarea placeholder="Description" {...field} />
+
+                    {fieldState.error && (
+                      <FieldError>{fieldState.error.message}</FieldError>
+                    )}
+                  </Field>
+                )}
+              />
+              <Controller
+                name="image"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field>
+                    <FieldLabel>Description</FieldLabel>
+                    <Input
+                      type="file"
+                      placeholder="Upload Your Image"
+                      accept="image/jpg, image/png, image/webp"
+                      onChange={(event) => {
+                        const file = event.target.files?.[0];
+                        field.onChange(file ?? null);
+                      }}
+                    />
 
                     {fieldState.error && (
                       <FieldError>{fieldState.error.message}</FieldError>

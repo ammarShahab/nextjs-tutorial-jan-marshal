@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "brilliant-dragon-914.convex.cloud",
+        port: "",
+      },
     ],
   },
   // }
