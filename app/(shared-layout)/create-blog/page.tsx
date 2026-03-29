@@ -124,7 +124,7 @@ export default function CreateBlog() {
                     <Input
                       type="file"
                       placeholder="Upload Your Image"
-                      accept="image/jpg, image/png, image/webp"
+                      accept="image/*"
                       onChange={(event) => {
                         const file = event.target.files?.[0];
                         field.onChange(file ?? null);
