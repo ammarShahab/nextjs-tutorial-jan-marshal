@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import z from "zod";
 
 export default function CreateTask() {
@@ -23,7 +24,13 @@ export default function CreateTask() {
 
   async function onSubmit(data: z.infer<typeof taskSchema>) {
     console.log("Task Created", data);
-    await taskActions(data);
+    // await taskActions(data);
+
+    // 4.5 to show the toast message
+    const result = await taskActions(data);
+    if (!result.success) {
+      toast.error(result.error);
+    }
   }
 
   return (
