@@ -6,8 +6,7 @@ import { api } from "@/convex/_generated/api";
 import { redirect } from "next/navigation";
 import { getToken } from "@/lib/auth-server";
 import { fetchMutation } from "convex/nextjs";
-import { error } from "console";
-import { string } from "better-auth";
+import { revalidatePath } from "next/cache";
 
 // 4.0 as in build mode when Unauthorized  the ui not showing the Unauthorized message. Following we use the Unauthorized error to show the message
 // 4.1 create typwe for error message
@@ -40,6 +39,8 @@ export default async function taskActions(
       },
       { token },
     );
+    // 6.2 on demand revalidation are two types i. revalidatePath ii. revalidateTag. Note: as we use revalidatePath so time based revalidation will not work now. It will work only in server environment and route handlers. Not work in client component and proxy.
+    revalidatePath("/tasks");
   } catch (error) {
     return {
       success: false,

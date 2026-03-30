@@ -25,7 +25,7 @@ export const createTask = mutation({
 export const getTasks = query({
   args: {},
   handler: (ctx) => {
-    const tasks = ctx.db.query("tasks").collect();
+    const tasks = ctx.db.query("tasks").order("desc").collect();
     return tasks;
   },
 });

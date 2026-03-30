@@ -39,8 +39,8 @@ export const getBlogs = query({
   handler: async (ctx) => {
     // Get all blogs from the database
     const blogs = await ctx.db.query("blogs").order("desc").collect();
-    // 3.6.5 return the resolvedImageUrl to the client as per documentation "https://docs.convex.dev/file-storage/serve-files"
 
+    // 3.6.5 return the resolvedImageUrl to the client as per documentation "https://docs.convex.dev/file-storage/serve-files"
     return Promise.all(
       blogs.map(async (blog) => {
         const resolvedImageUrl =

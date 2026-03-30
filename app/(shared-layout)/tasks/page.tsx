@@ -15,6 +15,12 @@ function formatDate(timestamp: number) {
   });
 }
 
+// 5.0 as the task route is dynamic because its a shared layout with using token, so to make it static we will use force-static and in build mode. Note: to make any dynamic server component static (cached) we will use force-static. now after build when create any task it will show the stale data.
+export const dynamic = "force-static";
+// 6.0 to revalidate the data there are two types of revalidation i. time based revalidation ii. on demand revalidation. Note: it is also called ISR (Incremental Static Regeneration).
+// 6.1 time based revalidation in every 30 seconds i.e. after 30 seconds the data will be updated
+export const revalidate = 120;
+
 export default function Tasks() {
   // created a fake delay of 5 seconds
   // await new Promise((resolve) => setTimeout(resolve, 5000));
@@ -74,7 +80,9 @@ export async function TasksLists() {
             <Card key={task._id} className="border shadow-none flex-1">
               <CardHeader className="pb-2">
                 <div className="flex items-start justify-between gap-2">
-                  <CardTitle className="text-base font-medium leading-snug"></CardTitle>
+                  <CardTitle className="text-base font-medium leading-snug">
+                    {task.title}
+                  </CardTitle>
                   <span className="shrink-0 text-xs text-muted-foreground">
                     {formatDate(task._creationTime)}
                   </span>

@@ -24,7 +24,7 @@ import z from "zod";
 export default function CreateBlog() {
   const mutation = useMutation(api.blogs.createBlog);
 
-  // 3.4 call the generateImageUploadUrl
+  // 3.5 call the generateImageUploadUrl
   const generateImageUploadUrl = useMutation(api.blogs.generateImageUploadUrl);
 
   const [isPending, startTransition] = useTransition();
