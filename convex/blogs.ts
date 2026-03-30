@@ -72,3 +72,25 @@ export const generateImageUploadUrl = mutation({
     return await ctx.storage.generateUploadUrl();
   },
 });
+
+// 7.1 Create query for individual blog
+
+export const getBlogById = query({
+  args: { blogId: v.id("blogs") },
+  handler: async (ctx, args) => {
+    const blog = await ctx.db.get(args.blogId);
+    // return blog;
+    if (!blog) {
+      return null;
+    }
+    // 7.2 also extract the imageStorageId
+    const resolvedImageUrl =
+      blog?.imageId !== undefined
+        ? await ctx.storage.getUrl(blog.imageId)
+        : null;
+    return {
+      ...blog,
+      imageUrl: resolvedImageUrl,
+    };
+  },
+});
