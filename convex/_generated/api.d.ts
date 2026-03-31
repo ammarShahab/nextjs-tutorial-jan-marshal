@@ -9,6 +9,7 @@
  */
 
 import type * as blogs from "../blogs.js";
+import type * as comments from "../comments.js";
 import type * as http from "../http.js";
 import type * as tasks from "../tasks.js";
 
@@ -20,6 +21,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   blogs: typeof blogs;
+  comments: typeof comments;
   http: typeof http;
   tasks: typeof tasks;
 }>;

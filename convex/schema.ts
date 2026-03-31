@@ -12,6 +12,14 @@ export default defineSchema({
     // imageId: v.id("_storage"),
   }),
 
+  // 8.0 my requirement is implement a blog comment feature so first create a comment table
+  comments: defineTable({
+    blogId: v.id("blogs"),
+    userId: v.string(),
+    userName: v.string(),
+    content: v.string(),
+  }).index("by_blog", ["blogId"]),
+
   // 1.0 Create schema for create task functionality
   tasks: defineTable({
     title: v.string(),
