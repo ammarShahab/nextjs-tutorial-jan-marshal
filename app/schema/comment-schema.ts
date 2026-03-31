@@ -5,4 +5,5 @@ export const commentSchema = z.object({
     .string()
     .min(3, "Comments must be al least 3 characters")
     .max(500, "Comments must be under 500 characters"),
+  blogId: z.string(),
 });

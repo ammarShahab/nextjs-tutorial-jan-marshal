@@ -1,4 +1,5 @@
 import { Separator } from "@/components/ui/separator";
+import CommentSection from "@/components/web/Comments";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { fetchQuery } from "convex/nextjs";
@@ -11,7 +12,7 @@ interface BlogIdProps {
   params: Promise<{ blogId: Id<"blogs"> }>;
 }
 
-//  7.0 show individual blog
+//  7.0 show individual blog using params. Note: await params is used only in server component
 export default async function BlogPage({ params }: BlogIdProps) {
   const blogId = await params;
   const blog = await fetchQuery(api.blogs.getBlogById, blogId);
@@ -53,6 +54,10 @@ export default async function BlogPage({ params }: BlogIdProps) {
             Created At: {new Date(blog._creationTime).toLocaleDateString()}
           </p>
         </div>
+      </div>
+      {/* 8.5 call the CommentSection in blogId route */}
+      <div className="mt-7">
+        <CommentSection />
       </div>
     </div>
   );
