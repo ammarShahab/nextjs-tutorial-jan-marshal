@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 import { useParams } from "next/navigation";
 import { Id } from "@/convex/_generated/dataModel";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
@@ -20,6 +20,11 @@ export default function CommentSection() {
   // 8.5 get the blogId using useParams. Note: useParams is used to get the id in the client side. so we can avoid props drilling also.
   const params = useParams<{ blogId: Id<"blogs"> }>();
   const createComment = useMutation(api.comments.createComments);
+
+  // 9.0 as we want to instant update the comments, we need to use useQuery to fetch the comments.
+  const comment = useQuery(api.comments.getCommentByBlogId, {
+    blogId: params.blogId,
+  });
 
   const {
     register,
@@ -71,6 +76,7 @@ export default function CommentSection() {
           </Button>
         </form>
       </CardContent>
+      {JSON.stringify(comment)}
     </Card>
   );
 }
