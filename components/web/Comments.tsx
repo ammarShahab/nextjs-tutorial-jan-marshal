@@ -19,7 +19,6 @@ import { Loader2 } from "lucide-react";
 export default function CommentSection() {
   // 8.5 get the blogId using useParams. Note: useParams is used to get the id in the client side. so we can avoid props drilling also.
   const params = useParams<{ blogId: Id<"blogs"> }>();
-  console.log(params);
   const createComment = useMutation(api.comments.createComments);
 
   const {
