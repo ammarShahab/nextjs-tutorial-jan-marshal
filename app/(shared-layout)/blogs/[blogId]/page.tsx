@@ -15,16 +15,21 @@ interface BlogIdProps {
 //  7.0 show individual blog using params. Note: await params is used only in server component
 export default async function BlogPage({ params }: BlogIdProps) {
   const { blogId } = await params;
-  const blog = await fetchQuery(api.blogs.getBlogById, { blogId });
+  // const blog = await fetchQuery(api.blogs.getBlogById, { blogId });
 
-  // 10.0 as we want to show the comments in sever component without loading so as documentation we use preloadQuery
-  const preloadedComments = await preloadQuery(
+  // 10.0 as we want to show the comments in sever component without loading so as documentation we use preloadQuery but for performance optimization as the two fetching blog and preloadedComments are fetch sequentially. But we want to fetch them in parallel using Promise.all thats why commented both blog and preloadedComments.
+  /* const preloadedComments = await preloadQuery(
     api.comments.getCommentByBlogId,
     {
       blogId: blogId,
     },
-  );
+  ); */
 
+  // 10.1
+  const [blog, preloadedComments] = await Promise.all([
+    await fetchQuery(api.blogs.getBlogById, { blogId }),
+    await preloadQuery(api.comments.getCommentByBlogId, { blogId }),
+  ]);
   if (!blog) {
     return (
       <div>
@@ -64,7 +69,7 @@ export default async function BlogPage({ params }: BlogIdProps) {
         </div>
       </div>
       {/* 8.5 call the CommentSection in blogId route */}
-      {/* 10.1 passed as props */}
+      {/* 10.2 passed as props */}
       <div className="mt-7">
         <CommentSection preloadedComments={preloadedComments} />
       </div>

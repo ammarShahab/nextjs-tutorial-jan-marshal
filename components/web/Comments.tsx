@@ -21,7 +21,7 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
 // 8.4 create a CommentSection
-// 10.2 as per documentation we will pass the props following
+// 10.3 as per documentation we will pass the props following
 export default function CommentSection(props: {
   preloadedComments: Preloaded<typeof api.comments.getCommentByBlogId>;
 }) {
@@ -34,7 +34,7 @@ export default function CommentSection(props: {
     blogId: params.blogId,
   }); */
 
-  // 10.3 as per documentation we will use usePreloadedQuery which show the comments without loading
+  // 10.4 as per documentation we will use usePreloadedQuery which show the comments without loading
   const comment = usePreloadedQuery(props.preloadedComments);
 
   const {
