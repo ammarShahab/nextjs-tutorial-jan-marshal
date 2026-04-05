@@ -9,13 +9,13 @@ import { fetchMutation } from "convex/nextjs";
 import { revalidatePath } from "next/cache";
 
 // 4.0 as in build mode when Unauthorized  the ui not showing the Unauthorized message. Following we use the Unauthorized error to show the message
-// 4.1 create typwe for error message
+// 4.1 create type for error message
 type ActionMessage = { success: true } | { success: false; error: string };
 
 // 1.4 create task actions in frontend
 export default async function taskActions(
   data: z.infer<typeof taskSchema>,
-  // 4.2 return the Procmise of ActionMessage
+  // 4.2 return the Promise of ActionMessage
 ): Promise<ActionMessage> {
   const parsed = taskSchema.safeParse(data);
 

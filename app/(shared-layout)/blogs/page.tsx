@@ -1,14 +1,22 @@
-"use client";
+// "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import CommentSection from "@/components/web/Comments";
 import { api } from "@/convex/_generated/api";
+import { fetchQuery } from "convex/nextjs";
 import { useQuery } from "convex/react";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Blogs() {
-  const blogs = useQuery(api.blogs.getBlogs);
+// 11.0 my requirement is use metadata for SEO benefits. Remember metaData (static page) and generateMetadata (dynamic page) both are server only. So we commented the use client and change the useQuery(client side query for live instant update) to fetchQuery(server side query but update upon refresh) and make the function async.
+export const metadata: Metadata = {
+  title: "Blogs",
+  description: "All the blogs created by the user",
+};
+
+export default async function Blogs() {
+  // const blogs = useQuery(api.blogs.getBlogs);
+  const blogs = await fetchQuery(api.blogs.getBlogs);
   console.log(blogs);
 
   if (blogs === undefined) {

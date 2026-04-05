@@ -4,12 +4,35 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { fetchQuery, preloadQuery } from "convex/nextjs";
 import { ArrowLeft } from "lucide-react";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
 // 7.3 create blog schema
 interface BlogIdProps {
   params: Promise<{ blogId: Id<"blogs"> }>;
+}
+
+// 11.1 use generateMetadata for seo in dynamic page
+export async function generateMetadata({
+  params,
+}: BlogIdProps): Promise<Metadata> {
+  const { blogId } = await params;
+  // fetch post information
+  const blog = await fetchQuery(api.blogs.getBlogById, {
+    blogId: blogId,
+  });
+
+  if (!blog) {
+    return {
+      title: "Blog not found",
+    };
+  }
+
+  return {
+    title: blog.title,
+    description: blog.description,
+  };
 }
 
 //  7.0 show individual blog using params. Note: await params is used only in server component
@@ -68,7 +91,7 @@ export default async function BlogPage({ params }: BlogIdProps) {
           </p>
         </div>
       </div>
-      {/* 8.5 call the CommentSection in blogId route */}
+      {/* 8.6 call the CommentSection in blogId route */}
       {/* 10.2 passed as props */}
       <div className="mt-7">
         <CommentSection preloadedComments={preloadedComments} />
