@@ -2,7 +2,7 @@ import { Separator } from "@/components/ui/separator";
 import CommentSection from "@/components/web/Comments";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { fetchQuery } from "convex/nextjs";
+import { fetchQuery, preloadQuery } from "convex/nextjs";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,8 +14,16 @@ interface BlogIdProps {
 
 //  7.0 show individual blog using params. Note: await params is used only in server component
 export default async function BlogPage({ params }: BlogIdProps) {
-  const blogId = await params;
-  const blog = await fetchQuery(api.blogs.getBlogById, blogId);
+  const { blogId } = await params;
+  const blog = await fetchQuery(api.blogs.getBlogById, { blogId });
+
+  // 10.0 as we want to show the comments in sever component without loading so as documentation we use preloadQuery
+  const preloadedComments = await preloadQuery(
+    api.comments.getCommentByBlogId,
+    {
+      blogId: blogId,
+    },
+  );
 
   if (!blog) {
     return (
@@ -56,8 +64,9 @@ export default async function BlogPage({ params }: BlogIdProps) {
         </div>
       </div>
       {/* 8.5 call the CommentSection in blogId route */}
+      {/* 10.1 passed as props */}
       <div className="mt-7">
-        <CommentSection />
+        <CommentSection preloadedComments={preloadedComments} />
       </div>
     </div>
   );

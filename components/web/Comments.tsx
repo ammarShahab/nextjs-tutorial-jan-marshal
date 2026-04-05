@@ -10,21 +10,32 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 import { useParams } from "next/navigation";
 import { Id } from "@/convex/_generated/dataModel";
-import { useMutation, useQuery } from "convex/react";
+import {
+  Preloaded,
+  useMutation,
+  usePreloadedQuery,
+  useQuery,
+} from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
 // 8.4 create a CommentSection
-export default function CommentSection() {
+// 10.2 as per documentation we will pass the props following
+export default function CommentSection(props: {
+  preloadedComments: Preloaded<typeof api.comments.getCommentByBlogId>;
+}) {
   // 8.5 get the blogId using useParams. Note: useParams is used to get the id in the client side. so we can avoid props drilling also.
   const params = useParams<{ blogId: Id<"blogs"> }>();
   const createComment = useMutation(api.comments.createComments);
 
-  // 9.0 as we want to instant update the comments, we need to use useQuery to fetch the comments.
-  const comment = useQuery(api.comments.getCommentByBlogId, {
+  // 9.0 as we want to instant update the comments, we need to use useQuery to fetch the comments.(currently commented because we will to render it using usePreloadQuery)
+  /* const comment = useQuery(api.comments.getCommentByBlogId, {
     blogId: params.blogId,
-  });
+  }); */
+
+  // 10.3 as per documentation we will use usePreloadedQuery which show the comments without loading
+  const comment = usePreloadedQuery(props.preloadedComments);
 
   const {
     register,
