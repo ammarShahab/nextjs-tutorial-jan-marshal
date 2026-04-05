@@ -17,7 +17,7 @@ export default async function BlogPage({ params }: BlogIdProps) {
   const { blogId } = await params;
   // const blog = await fetchQuery(api.blogs.getBlogById, { blogId });
 
-  // 10.0 as we want to show the comments in sever component without loading so as documentation we use preloadQuery but for performance optimization as the two fetching blog and preloadedComments are fetch sequentially. But we want to fetch them in parallel using Promise.all thats why commented both blog and preloadedComments.
+  // 10.0 as we want to show the comments in sever component without loading so as documentation we use preloadQuery but for performance optimization as the two fetching blog and preloadedComments are fetch sequentially which causes unnecessary loading time. But we want to fetch them in parallel using Promise.all thats why commented both blog and preloadedComments.
   /* const preloadedComments = await preloadQuery(
     api.comments.getCommentByBlogId,
     {
