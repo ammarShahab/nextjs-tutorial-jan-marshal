@@ -53,6 +53,7 @@ export default async function BlogPage({ params }: BlogIdProps) {
     await fetchQuery(api.blogs.getBlogById, { blogId }),
     await preloadQuery(api.comments.getCommentByBlogId, { blogId }),
   ]);
+
   if (!blog) {
     return (
       <div>

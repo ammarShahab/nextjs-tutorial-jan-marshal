@@ -12,10 +12,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/convex/_generated/api";
+import { authClient } from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "convex/react";
 import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 import { useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -68,6 +69,14 @@ export default function CreateBlog() {
       });
       router.push("/blogs");
     });
+  }
+
+  // 14.0 for multilayer auth validation
+  const { data: session } = authClient.useSession();
+  // 14.1
+
+  if (!session) {
+    return redirect("/auth/logIn");
   }
 
   return (
