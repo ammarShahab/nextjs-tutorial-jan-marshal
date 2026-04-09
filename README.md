@@ -77,3 +77,6 @@ Now follow the rest of the flow as per documentation
 11.0 my requirement is use metadata for SEO benefits. Remember metaData (static page) and generateMetadata (dynamic page) both are server only. So we commented the use client and change the useQuery(client side query for live instant update) to fetchQuery(server side query but update upon refresh) and make the function async.
 11.1 use generateMetadata for seo in dynamic page
 12.0 There is feature like user who is currently viewing the blog get Realtime presence not implemented yet (but u will find in the video https://www.youtube.com/watch?v=MZbwu3-uz3Y&t=10393s from 6:50 - 7:09).
+13.0 for authentication using proxy we will follow the documentation of better auth "https://better-auth.com/docs/integrations/next#auth-protection"
+14.0 for multilayer auth validation
+15.0 create skeleton loading page for blog
